@@ -1,0 +1,49 @@
+﻿@model IEnumerable<BookDTO>
+
+<h1>Books in library</h1>
+
+<p>
+    <a asp-action="BookCreate" class="btn btn-outline-primary">Add New Book</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Actions</th>
+            <th>Avaliable</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var book in Model)
+        {
+            <tr class="@(book.IsAvaliable ? "table-success" : "table-danger")">
+                
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                
+                <td>
+                    <a asp-action="BookDetails" class="btn btn-outline-success" asp-route-id="@book.BookID">Details<i class="fa fa-edit"></i></a>
+
+                    <a asp-action="UpdateBook" class="btn btn-outline-warning" asp-route-bookId="@book.BookID">Edit<i class="fa fa-edit"></i></a>
+
+                    <a asp-action="DeleteBook" class="btn btn-outline-danger" asp-route-bookId="@book.BookID">Delete<i class="fa fa-edit"></i></a>
+
+                </td>
+
+                <td>
+                    @if (book.IsAvaliable)
+                    {
+                        <span class="badge bg-success">Avaliable</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Not Avaliable</span>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
