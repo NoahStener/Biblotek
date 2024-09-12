@@ -1,10 +1,6 @@
 ﻿@model IEnumerable<BookDTO>
 
-<h1>Books in library</h1>
-
-<p>
-    <a asp-action="BookCreate" class="btn btn-outline-primary">Add New Book</a>
-</p>
+<h1>Current Books in Library</h1>
 
 <table class="table">
     <thead>
@@ -47,3 +43,6 @@
         }
     </tbody>
 </table>
+<p>
+    <a asp-action="BookCreate" class="btn btn-outline-primary">Add New Book</a>
+</p>
