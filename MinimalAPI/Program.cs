@@ -12,6 +12,14 @@ namespace MinimalAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            //lägger till CORS-policy
+            builder.Services.AddCors((setup) => setup.AddPolicy("default", (options) =>
+            {
+                options.AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowAnyOrigin();
+            }));
+
             // Add services to the container.
             builder.Services.AddAuthorization();
 
@@ -32,6 +40,8 @@ namespace MinimalAPI
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors("default");
 
             app.UseHttpsRedirection();
 

@@ -9,5 +9,6 @@ namespace Book_MVC.Services
         Task<T> CreateBookAsync<T>(BookDTO bookDTO);
         Task<T> UpdateBookAsync<T>(BookDTO bookDTO);
         Task<T> DeleteBookAsync<T>(int id);
+        Task<T> SearchBookAsync<T>(string title);
     }
 }

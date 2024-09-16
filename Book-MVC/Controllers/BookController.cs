@@ -117,5 +117,17 @@ namespace Book_MVC.Controllers
             }
             return RedirectToAction(nameof(BookIndex));
         }
+
+        public async Task<IActionResult>SearchBook(string title)
+        {
+            var response = await _bookService.SearchBookAsync<ResponseDTO>(title);
+
+            if(response != null && response.IsSuccess)
+            {
+                BookDTO model = JsonConvert.DeserializeObject<BookDTO>(Convert.ToString(response.Result));
+                return View(model);
+            }
+            return View();
+        }
     }
 }

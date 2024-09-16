@@ -53,6 +53,16 @@ namespace Book_MVC.Services
             });
         }
 
+        public async Task<T> SearchBookAsync<T>(string title)
+        {
+            return await this.SendAsync<T>(new Models.ApiRequest
+            {
+                apiType = StaticDetails.ApiType.GET,
+                Url = StaticDetails.BookApiBase + "/api/book/" + title,
+                AccessToken = ""
+            });
+        }
+
         public async Task<T> UpdateBookAsync<T>(BookDTO bookDTO)
         {
             return await this.SendAsync<T>(new Models.ApiRequest

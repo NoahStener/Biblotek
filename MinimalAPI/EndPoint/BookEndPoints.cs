@@ -20,7 +20,9 @@ namespace MinimalAPI.EndPoint
                 .Produces<BookUpdateDTO>(200)
                 .Produces(400);
 
-            app.MapDelete("/api/book/{id:int}", DeleteBook).WithName("DeleteBook").WithName("DeleteBook");
+            app.MapDelete("/api/book/{id:int}", DeleteBook).WithName("DeleteBook");
+
+            app.MapGet("/api/book", SearchBook).WithName("SearchBook").Produces<APIResponse>();
         }
 
         private static async Task<IResult> GetAllBooks(IBookRepository _bookRepo)
@@ -41,6 +43,17 @@ namespace MinimalAPI.EndPoint
             response.Result = await _bookRepo.GetByIdAsync(id);
             response.IsSuccess = true;
             response.StatusCode = System.Net.HttpStatusCode.OK;
+
+            return Results.Ok(response);
+        }
+
+        private static async Task<IResult>SearchBook(IBookRepository _bookRepo, string title)
+        {
+            APIResponse response = new APIResponse();
+
+            response.Result = await _bookRepo.GetAsync(title);
+            response.IsSuccess = true;
+            response.StatusCode= System.Net.HttpStatusCode.OK;
 
             return Results.Ok(response);
         }
