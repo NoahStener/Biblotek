@@ -120,6 +120,11 @@ namespace Book_MVC.Controllers
 
         public async Task<IActionResult>SearchBook(string title)
         {
+            if(string.IsNullOrEmpty(title))
+            {
+                return View();
+            }
+
             var response = await _bookService.SearchBookAsync<ResponseDTO>(title);
 
             if(response != null && response.IsSuccess)
@@ -127,6 +132,7 @@ namespace Book_MVC.Controllers
                 BookDTO model = JsonConvert.DeserializeObject<BookDTO>(Convert.ToString(response.Result));
                 return View(model);
             }
+            ViewBag.Message = "No book was found with given title";
             return View();
         }
     }

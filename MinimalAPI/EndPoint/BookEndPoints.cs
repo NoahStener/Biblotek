@@ -51,10 +51,19 @@ namespace MinimalAPI.EndPoint
         {
             APIResponse response = new APIResponse();
 
-            response.Result = await _bookRepo.GetAsync(title);
-            response.IsSuccess = true;
-            response.StatusCode= System.Net.HttpStatusCode.OK;
-
+            var book = await _bookRepo.GetAsync(title.ToLower());
+            if(book != null)
+            {
+                response.Result = book;
+                response.IsSuccess = true;
+                response.StatusCode=System.Net.HttpStatusCode.OK;
+            }
+            else
+            {
+                response.ErrorMessages.Add("Book was not found");
+                response.StatusCode = System.Net.HttpStatusCode.NotFound;
+                
+            }
             return Results.Ok(response);
         }
 

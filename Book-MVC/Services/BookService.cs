@@ -58,7 +58,7 @@ namespace Book_MVC.Services
             return await this.SendAsync<T>(new Models.ApiRequest
             {
                 apiType = StaticDetails.ApiType.GET,
-                Url = StaticDetails.BookApiBase + "/api/book/" + title,
+                Url = StaticDetails.BookApiBase + "/api/book?title=" + title,
                 AccessToken = ""
             });
         }

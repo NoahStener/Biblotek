@@ -1,8 +1,55 @@
 ﻿@model BookDTO
 
-<h1>Search for a book you would like to read</h1>
+<div class="container text-center">
+    <h1>Search for a book you would like to read</h1>
 
-<form class="form-inline my-2 my-lg-0">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-</form>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form class="form-inline my-2 my-lg-0" asp-action="SearchBook" asp-route-id="title">
+                <div class="input-group mb-3">
+                    <input class="form-control" type="search" name="title" placeholder="Search for a book" aria-label="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @if(Model != null)
+    {
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card my-4">
+                    <div class="card-body">
+                        <h2 class="card-title display-4">@Model.Title</h2>
+                        <p class="card-text">@Model.Description</p>
+                        <p class="card-text">Author: @Model.Author</p>
+                        <p class="card-text">Genre: @Model.Genre</p>
+                        <p class="card-text">Release Year: @Model.YearOfRelease</p>
+                        @if(Model.IsAvaliable)
+                        {
+                            <p class="card-text display-2">Book is available for hire</p>
+                        }
+                        else
+                        {
+                            <p class="card-text display-2">Book is currently occupied by other customer</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else if(ViewBag.Message != null)
+    {
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="alert alert-warning text-center" role="alert">
+                    @ViewBag.Message
+                </div>
+            </div>
+        </div>
+    }
+
+    
+</div>
